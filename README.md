@@ -10,6 +10,8 @@ This repo is based on the work from https://github.com/datacharmer/test_db with 
 
 1. Use singular form instead of plural form to name the table (e.g. `employees` -> `employee`).
 
+1. Update schema visualizer to make it more readable and include views
+
 1. Only keep md5 to verify the data installation, remove SHA. There is no need to maintain 2 methods to verify the data.
 
 1. Remove unnecessary files.
