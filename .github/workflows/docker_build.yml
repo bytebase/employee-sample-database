@@ -20,4 +20,4 @@ jobs:
           file: Dockerfile.small
           platforms: linux/amd64, linux/arm64/v8
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sample-database:mysql-employee-small
+          tags: bytebase/sample-database:mysql-employee-small
