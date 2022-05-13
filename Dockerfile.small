@@ -1,5 +1,6 @@
 FROM mysql/mysql-server
 
+ENV MYSQL_ROOT_HOST=%
 ENV MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 COPY install_dataset_small.sh /docker-entrypoint-initdb.d
