@@ -37,12 +37,12 @@ CREATE TABLE expected_value (
 CREATE TABLE found_value LIKE expected_value;
 
 INSERT INTO `expected_value` VALUES 
-('employee',    1000, '595460127fb609c2b110b1796083e242'),
+('employee',    10000, '2b9ee8043563317634407daf42a9ef0b'),
 ('department',      9, 'd1af5e170d2d1591d776d5638d71fc5f'),
-('dept_manager',    16, '8ff425d5ad6dc56975998d1893b8dca9'),
-('dept_emp',     1103, 'e302aa5b56a69b49e40eb0d60674addc'),
-('title',       1470, 'ba77dd331ce00f76c1643a7d73cdcee6'),
-('salary',     9488, '61f22cfece4d34f5bb94c9f05a3da3ef');
+('dept_manager',    24, '953e3c0c8360805645498ada817b66e9'),
+('dept_emp',     11051, 'fc43a976d1406705d9707f6fea1df9df'),
+('title',       14782, 'ffa808be19d75619f415e2964cbe0320'),
+('salary',     94917, '0fcb81f97f6b0eacb01a22a085e6512d');
 SELECT table_name, recs AS expected_record, crc_md5 AS expected_crc FROM expected_value;
 
 DROP TABLE IF EXISTS tchecksum;

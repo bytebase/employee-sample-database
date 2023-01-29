@@ -6,7 +6,9 @@ This repo is based on the work from https://github.com/datacharmer/test_db with 
 
    a. dataset_full (~170 MB). This is the same as the original one.
 
-   b. dataset_small (~6 MB). ~3% of the dataset_full (10000 employees vs 300024 employees).
+   b. dataset_large (~6 MB). ~3% of the dataset_full (10000 employees vs 300024 employees).
+
+   c. dataset_small (~600 KB). ~0.3% of the dataset_full (1000 employees vs 300024 employees).
 
 1. Use singular form instead of plural form to name the table (e.g. `employees` -> `employee`).
 
@@ -35,15 +37,11 @@ user that has the following privileges:
 
 1. Download the repository
 2. Change directory to the repository
-3. Change directory to either `dataset_full` or `dataset_small`
+3. Change directory to either `dataset_full`, `dataset_large` or `dataset_small`
 
 Run
 
     cd dataset_full
-
-or
-
-    cd dataset_small
 
 Then run
 
@@ -103,10 +101,10 @@ Then run
     | count   | OK     |
     +---------+--------+
 
-### Testing `dataset_small`
+### Testing `dataset_large`
 
-    // Under 'dataset_small' directory
-    mysql -t < dataset_small/test_employee_md5.sql
+    // Under 'dataset_large' directory
+    mysql -t < test_employee_md5.sql
 
     +----------------------+
     | INFO                 |
@@ -147,6 +145,58 @@ Then run
     | computation_time |
     +------------------+
     | 00:00:02         |
+    +------------------+
+    +---------+--------+
+    | summary | result |
+    +---------+--------+
+    | CRC     | OK     |
+    | count   | OK     |
+    +---------+--------+
+
+### Testing `dataset_small`
+
+    // Under 'dataset_small' directory
+    mysql -t < test_employee_md5.sql
+
+    +----------------------+
+    | INFO                 |
+    +----------------------+
+    | TESTING INSTALLATION |
+    +----------------------+
+    +--------------+-----------------+----------------------------------+
+    | table_name   | expected_record | expected_crc                     |
+    +--------------+-----------------+----------------------------------+
+    | department   |               9 | d1af5e170d2d1591d776d5638d71fc5f |
+    | dept_emp     |            1103 | e302aa5b56a69b49e40eb0d60674addc |
+    | dept_manager |              16 | 8ff425d5ad6dc56975998d1893b8dca9 |
+    | employee     |            1000 | 595460127fb609c2b110b1796083e242 |
+    | salary       |            9488 | 61f22cfece4d34f5bb94c9f05a3da3ef |
+    | title        |            1470 | ba77dd331ce00f76c1643a7d73cdcee6 |
+    +--------------+-----------------+----------------------------------+
+    +--------------+------------------+----------------------------------+
+    | table_name   | found_records    | found_crc                        |
+    +--------------+------------------+----------------------------------+
+    | department   |                9 | d1af5e170d2d1591d776d5638d71fc5f |
+    | dept_emp     |             1103 | e302aa5b56a69b49e40eb0d60674addc |
+    | dept_manager |               16 | 8ff425d5ad6dc56975998d1893b8dca9 |
+    | employee     |             1000 | 595460127fb609c2b110b1796083e242 |
+    | salary       |             9488 | 61f22cfece4d34f5bb94c9f05a3da3ef |
+    | title        |             1470 | ba77dd331ce00f76c1643a7d73cdcee6 |
+    +--------------+------------------+----------------------------------+
+    +--------------+---------------+-----------+
+    | table_name   | records_match | crc_match |
+    +--------------+---------------+-----------+
+    | department   | OK            | ok        |
+    | dept_emp     | OK            | ok        |
+    | dept_manager | OK            | ok        |
+    | employee     | OK            | ok        |
+    | salary       | OK            | ok        |
+    | title        | OK            | ok        |
+    +--------------+---------------+-----------+
+    +------------------+
+    | computation_time |
+    +------------------+
+    | 00:00:00         |
     +------------------+
     +---------+--------+
     | summary | result |
