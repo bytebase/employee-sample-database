@@ -39,13 +39,17 @@ user that has the following privileges:
 2. Change directory to the repository
 3. Change directory to either `dataset_full`, `dataset_large` or `dataset_small`
 
-Run
+Run:
 
-    cd dataset_full
+```bash
+cd dataset_small
+```
 
 Then run
 
-    mysql < employee.sql
+```
+mysql < employee.sql
+```
 
 ## Testing the installation
 
@@ -207,7 +211,9 @@ Then run
 
 ## Installing the function (optional)
 
-    mysql < object.sql
+```bash
+mysql < object.sql
+```
 
 **If you are connecting to a cloud instance such as AWS RDS. You MUST turn off binary logging first. Otherwise, you will encounter error**
 
