@@ -110,18 +110,18 @@ CREATE OR REPLACE VIEW current_dept_emp AS
 flush /*!50503 binary */ logs;
 
 SELECT 'LOADING department' as 'INFO';
-source load_department.dump ;
+source load_department.sql ;
 SELECT 'LOADING employee' as 'INFO';
-source load_employee.dump ;
+source load_employee.sql ;
 SELECT 'LOADING dept_emp' as 'INFO';
-source load_dept_emp.dump ;
+source load_dept_emp.sql ;
 SELECT 'LOADING dept_manager' as 'INFO';
-source load_dept_manager.dump ;
+source load_dept_manager.sql ;
 SELECT 'LOADING title' as 'INFO';
-source load_title.dump ;
+source load_title.sql ;
 SELECT 'LOADING salary' as 'INFO';
-source load_salary1.dump ;
-source load_salary2.dump ;
-source load_salary3.dump ;
+source load_salary1.sql ;
+source load_salary2.sql ;
+source load_salary3.sql ;
 
 source show_elapsed.sql ;

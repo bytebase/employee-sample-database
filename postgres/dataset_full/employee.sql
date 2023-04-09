@@ -114,16 +114,16 @@ FROM
 		AND l.to_date = d.to_date;
 
 \echo 'LOADING department'
-\i load_department.dump
+\i load_department.sql
 \echo 'LOADING employee'
-\i load_employee.dump
+\i load_employee.sql
 \echo 'LOADING dept_emp'
-\i load_dept_emp.dump
+\i load_dept_emp.sql
 \echo 'LOADING dept_manager'
-\i load_dept_manager.dump
+\i load_dept_manager.sql
 \echo 'LOADING title'
-\i load_title.dump
+\i load_title.sql
 \echo 'LOADING salary'
-\i load_salary1.dump
-\i load_salary2.dump
-\i load_salary3.dump
+\i load_salary1.sql
+\i load_salary2.sql
+\i load_salary3.sql
