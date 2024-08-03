@@ -43,6 +43,8 @@ CREATE TABLE employee (
 	PRIMARY KEY (emp_no)
 );
 
+CREATE INDEX idx_employee_hire_date ON employee (hire_date);
+
 CREATE TABLE department (
 	dept_no     TEXT NOT NULL,
 	dept_name   TEXT NOT NULL,
@@ -87,6 +89,44 @@ CREATE TABLE salary (
 	FOREIGN KEY (emp_no) REFERENCES employee (emp_no) ON DELETE CASCADE,
 	PRIMARY KEY (emp_no, from_date)
 );
+
+CREATE INDEX idx_salary_amount ON salary (amount);
+
+CREATE TABLE audit (
+    id SERIAL PRIMARY KEY,
+    operation TEXT NOT NULL,
+    query TEXT,
+    user_name TEXT NOT NULL,
+    changed_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_audit_operation ON audit (operation);
+CREATE INDEX idx_audit_username ON audit (user_name);
+CREATE INDEX idx_audit_changed_at ON audit (changed_at);
+
+CREATE OR REPLACE FUNCTION log_dml_operations() RETURNS TRIGGER AS $$
+BEGIN
+    IF (TG_OP = 'INSERT') THEN
+        INSERT INTO audit (operation, query, user_name)
+        VALUES ('INSERT', current_query(), current_user);
+        RETURN NEW;
+    ELSIF (TG_OP = 'UPDATE') THEN
+        INSERT INTO audit (operation, query, user_name)
+        VALUES ('UPDATE', current_query(), current_user);
+        RETURN NEW;
+    ELSIF (TG_OP = 'DELETE') THEN
+        INSERT INTO audit (operation, query, user_name)
+        VALUES ('DELETE', current_query(), current_user);
+        RETURN OLD;
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER salary_log_trigger
+AFTER INSERT OR UPDATE OR DELETE ON salary
+FOR EACH ROW
+EXECUTE FUNCTION log_dml_operations();
 
 CREATE OR REPLACE VIEW dept_emp_latest_date AS
 SELECT
