@@ -130,11 +130,6 @@ AFTER UPDATE OR DELETE ON salary
 FOR EACH ROW
 EXECUTE FUNCTION log_dml_operations();
 
-CREATE TRIGGER salary_log_trigger
-AFTER INSERT OR UPDATE OR DELETE ON salary
-FOR EACH ROW
-EXECUTE FUNCTION log_dml_operations();
-
 CREATE OR REPLACE VIEW dept_emp_latest_date AS
 SELECT
 	emp_no,
