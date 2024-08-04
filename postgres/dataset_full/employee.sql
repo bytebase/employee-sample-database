@@ -31,7 +31,8 @@ DROP TABLE IF EXISTS dept_emp,
                      title,
                      salary, 
                      employee, 
-                     department CASCADE;
+                     department,
+					 audit CASCADE;
 
 CREATE TABLE employee (
 	emp_no      SERIAL NOT NULL,
@@ -123,8 +124,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- only log update and delete, otherwise, it will cause too much change.
 CREATE TRIGGER salary_log_trigger
-AFTER INSERT OR UPDATE OR DELETE ON salary
+AFTER UPDATE OR DELETE ON salary
 FOR EACH ROW
 EXECUTE FUNCTION log_dml_operations();
 
