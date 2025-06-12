@@ -167,5 +167,3 @@ FROM
 \i load_title.sql
 \echo 'LOADING salary'
 \i load_salary1.sql
-\i load_salary2.sql
-\i load_salary3.sql
