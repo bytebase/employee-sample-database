@@ -105,6 +105,21 @@ CREATE INDEX idx_audit_operation ON audit (operation);
 CREATE INDEX idx_audit_username ON audit (user_name);
 CREATE INDEX idx_audit_changed_at ON audit (changed_at);
 
+-- Enable Row Level Security on audit table
+ALTER TABLE audit ENABLE ROW LEVEL SECURITY;
+
+-- Policy: Users can only see their own audit records
+CREATE POLICY audit_user_isolation ON audit
+    FOR ALL
+    TO PUBLIC
+    USING (user_name = current_user);
+
+-- Policy: Allow audit system to insert records (bypass RLS for service accounts)
+CREATE POLICY audit_insert_system ON audit
+    FOR INSERT
+    TO PUBLIC
+    WITH CHECK (true);
+
 CREATE OR REPLACE FUNCTION log_dml_operations() RETURNS TRIGGER AS $$
 BEGIN
     IF (TG_OP = 'INSERT') THEN
